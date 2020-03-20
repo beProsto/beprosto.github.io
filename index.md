@@ -1,3 +1,4 @@
+<title>beProsto's website</title>
 # Hello, I'm beProsto :D
 ## A wanna-be game engine dev and occasional game dev
 - My best projects:
