@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>beProsto 💚</title>
+
+	<!-- --- Fonts --- -->
+	<!-- Lato -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet"> 
+
+	<!-- Scripts -->
+	<script defer src="./three.min.js"></script>
+	<script defer src="./index.js" type="module"></script>
+
+	<!-- Styling -->
+	<style>
+		canvas {
+			position: absolute;
+			z-index: -1;
+			top: 0px;
+			left: 0px;
+		}
+		body {
+			color: white;
+			background-color: #1f1f1f;
+		}
+		h1 {
+			font-size: larger;
+		}
+		h2 {
+			font-size: large;
+		}
+
+		#site_overview {
+			animation: site_overview_anim 4s;
+			font-family: 'Lato', sans-serif;
+			max-width: 50%;
+		}
+		@keyframes site_overview_anim {
+			0% {
+				transform: translateX(10px) rotateY(70deg) rotateX(70deg);
+			}
+			100% {
+				transform: translateX(0) rotateY(0) rotateX(0deg);
+			}
+		}
+
+		#logo {
+				position: absolute;
+
+				width: 10vw; 
+				height: 10vw;
+				left: 70%;
+				top: 10%;
+				
+				animation: logo_anim 4s;
+		}
+		@media only screen and (max-device-width: 480px) {
+			#logo {
+				width: 20vw; 
+				height: 20vw;
+			}
+		}
+		
+		@keyframes logo_anim {
+			0% {
+				transform: translateX(-120%) rotateY(-90deg) rotateX(70deg);
+			}
+			100% {
+				transform: translateX(0) rotateY(0deg) rotateX(0deg);
+			}
+		}
+
+	</style>
+</head>
+<body>
+	<div id="site_overview">
+		<header id="main_header">
+			<h1>Hi! I'm beProsto! 💚</h1>
+			<h2>Thank you so much for checking me out! I hope you'll find some of my projects intresting!</h2>
+			<h2>I'm mainly a C/C++ developer. I'm intrested in game engines, embedded systems, VR, and networking. :D</h2>
+		</header>
+	</div>
+	<noscript>
+		<img id="logo" src="./beprosto.png" alt="beProsto">
+	</noscript>
+</body>
+</html>
