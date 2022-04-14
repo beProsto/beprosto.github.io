@@ -47,7 +47,7 @@ sidekick {
 #navbar {
 	display: grid;
 	grid-auto-rows: minmax(30px, 18%);
-	grid-template-columns: repeat(1, 1fr) repeat(1, 2fr);
+	grid-template-columns: repeat(1, 1fr) repeat(1, 3fr);
 
 	width: 4rem;
 

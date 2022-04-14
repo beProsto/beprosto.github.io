@@ -15,10 +15,29 @@ body {
 	color: aliceblue;
 	font-family: 'Lato', sans-serif;
 }
+
+/* all the special cases in which my font colour is needed */
+prosto {
+	color: #5af95a;
+}
+/* all the special cases in which my secondaty font colour is needed */
+sidekick {
+	color: #00f4ff;
+}
+
 center {
 	position: absolute;
-	text-align: left;
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
+
+	text-align: left;
+
+	display: flex;
+	row-gap: 5px;
+	gap: 1em;
+	flex-wrap: wrap;
+}
+center > img {
+	max-width: 30%;
 }
