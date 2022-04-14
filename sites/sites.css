@@ -47,5 +47,16 @@ center > div {
 	display: flex;
 	gap: 0.5rem;
 	flex-direction: column;
-	flex-wrap: wrap;
+	flex-wrap: row wrap;
+}
+#logos {
+	display: flex;
+	gap: 1rem;
+	flex-direction: row;
+}
+.logo {
+	max-width: 3rem;
+	padding: 2%;
+	background: radial-gradient(white 50%, transparent 90%);
+	border-radius: 50%;
 }
