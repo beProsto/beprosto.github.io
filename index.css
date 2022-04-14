@@ -36,8 +36,7 @@ sidekick {
 	/* Vignette colour */
 	background: radial-gradient(circle, transparent 50%, black 200%), rgb(26, 34, 36);
 	width: 100%;
-	padding-left: 1rem;
-	padding-top: 1rem;
+	height: 100%;
 }
 #contents > iframe {
 	width: 100%;
@@ -64,16 +63,16 @@ sidekick {
 #navbar:hover > div > hiddn {
 	display: inline;
 	padding-top: 10px;
-	font-size: 18px;
+}
+#navbar > div > * {
+	font-size: 20px;
 }
 
 #navbar > div > p {
-	font-size: 25px;
-	padding-left: 5px;
+	padding-left: 10px;
 }
 #navbar > div > prosto {
-	font-size: 25px;
-	padding-left: 5px;
+	padding-left: 10px;
 	font-weight: 600;
 }
 
