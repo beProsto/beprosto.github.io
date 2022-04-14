@@ -85,7 +85,14 @@ sidekick {
 		background: linear-gradient(to right, rgb(0, 30, 47) 96%, black 100%);
 	}
 }
-
+a:link,a:visited {
+	color: #00f4ff;
+	text-decoration: none;
+}
+a:hover,a:active {
+	color: #5af95a;
+	text-decoration: none;
+}
 /* 
 * {
 	border: 1px solid white;
