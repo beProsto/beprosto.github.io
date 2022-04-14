@@ -1,0 +1,24 @@
+* {
+	margin: 0px;
+	border: 0px;
+	padding: 0px;
+}
+html {
+	height: 100%;
+}
+body {
+	/* Making the body take whole page */
+	position:absolute; top:0; bottom:0; right:0; left:0;
+	height: 100%;
+
+	/* The text */
+	color: aliceblue;
+	font-family: 'Lato', sans-serif;
+}
+center {
+	position: absolute;
+	text-align: left;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
