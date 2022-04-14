@@ -81,7 +81,7 @@ sidekick {
 		width: 4rem;
 	}
 	to {
-		width: 15rem;
+		width: 16rem;
 		background: linear-gradient(to right, rgb(0, 30, 47) 96%, black 100%);
 	}
 }
