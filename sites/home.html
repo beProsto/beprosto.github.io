@@ -12,6 +12,44 @@
 
 	<!-- Styles -->
 	<link rel="stylesheet" href="./sites.css">
+
+	<style>	
+		center {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+
+			text-align: left;
+
+			display: flex;
+			row-gap: 5px;
+			gap: 1em;
+			/* flex-wrap: wrap; */
+		}
+		center > img {
+			max-width: 30%;
+			border-radius: 20%;
+			margin-bottom: auto;
+		}
+		center > div {
+			display: flex;
+			gap: 0.5rem;
+			flex-direction: column;
+			flex-wrap: row wrap;
+		}
+		#logos {
+			display: flex;
+			gap: 1rem;
+			flex-direction: row;
+		}
+		.logo {
+			max-width: 3rem;
+			padding: 2%;
+			background: radial-gradient(white 50%, transparent 90%);
+			border-radius: 50%;
+		}
+	</style>
 </head>
 <body>
 	<center>
