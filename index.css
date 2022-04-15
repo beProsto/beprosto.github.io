@@ -48,13 +48,13 @@ sidekick {
 	grid-auto-rows: minmax(30px, 18%);
 	grid-template-columns: repeat(1, 1fr) repeat(1, 3fr);
 
-	width: 4rem;
-
-	background: linear-gradient(to right, rgb(0, 30, 47) 90%, black 100%);
+	gap: 10px;
 	padding-top: 1rem;
+	
+	animation: navbar-animation-out 0.8s forwards;
 }
 #navbar:hover {
-	animation: navbar-animation 1s forwards;
+	animation: navbar-animation-in 0.8s forwards;
 }
 
 #navbar > div > hiddn {
@@ -67,7 +67,6 @@ sidekick {
 #navbar > div > * {
 	font-size: 20px;
 }
-
 #navbar > div > p {
 	padding-left: 10px;
 }
@@ -75,16 +74,48 @@ sidekick {
 	padding-left: 10px;
 	font-weight: 600;
 }
+@media only screen and (max-width: 600px) {
+	/* Make the text smaller on mobile devices */
+	#navbar > div > * {
+		font-size: 16px;
+	}
+	#navbar > div > p {
+		padding-left: 15px;
+		font-size: 20px;
+	}
+	#navbar > div > prosto {
+		padding-left: 20px;
+		font-weight: 600;
+	}
+	#navbar:hover > div:contains-selector(hiddn) {
+		padding-right: 15px;
+		padding-left: 55px;
+	}
+}
 
-@keyframes navbar-animation {
+
+@keyframes navbar-animation-in {
 	from {
 		width: 4rem;
+		background: linear-gradient(to right, rgb(0, 30, 47) 90%, black 100%);
 	}
 	to {
 		width: 16rem;
 		background: linear-gradient(to right, rgb(0, 30, 47) 96%, black 100%);
 	}
 }
+@keyframes navbar-animation-out {
+	from {
+		width: 16rem;
+		background: linear-gradient(to right, rgb(0, 30, 47) 96%, black 100%);
+	}
+	to {
+		width: 4rem;
+		background: linear-gradient(to right, rgb(0, 30, 47) 90%, black 100%);
+	}
+}
+
+
 a:link,a:visited {
 	color: #00f4ff;
 	text-decoration: none;
