@@ -25,7 +25,6 @@
 			display: flex;
 			row-gap: 5px;
 			gap: 1em;
-			/* flex-wrap: wrap; */
 		}
 		center > img {
 			max-width: 30%;
@@ -48,6 +47,12 @@
 			padding: 2%;
 			background: radial-gradient(white 50%, transparent 90%);
 			border-radius: 50%;
+		}
+		@media only screen and (max-width: 600px) {
+			center {
+				flex-wrap: wrap;
+				width: 80%;
+			}
 		}
 	</style>
 </head>
