@@ -16,12 +16,11 @@ body {
 	font-family: 'Lato', sans-serif;
 	font-size: 18px;
 }
-@media only screen and (max-width: 600px) {
-	/* Make the text smaller on mobile devices */
+/* @media only screen and (max-width: 600px) {
 	body {
 		font-size: 12px;
 	}
-}
+} */
 
 /* all the special cases in which my font colour is needed */
 prosto {
