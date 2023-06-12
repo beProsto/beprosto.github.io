@@ -19,10 +19,18 @@
 		}
 
 		* {
-			cursor: url("./pointer.png"), auto;
 			font-family: "w95", sans-serif;
 			font-size: 18px;
 			/* letter-spacing: 0.5px; */
+		}
+		* {
+			cursor: url(frame1.png), auto;
+			animation: cursor 300ms infinite;
+		}
+		@keyframes cursor {
+			0% {cursor: url(frame1.png), auto;}
+			50% {cursor: url(frame2.png), auto;}
+			100% {cursor: url(frame3.png), auto;}
 		}
 
 		body {
@@ -60,6 +68,7 @@
 			margin-left: 1px;
 			margin-right: 1px;
 			padding: 0px 0px 0px 3px;
+			font-family: "w95fa";
 		}
 
 		.title>.button {
@@ -75,6 +84,7 @@
 		.title>.button>span {
 			position: relative;
 			top: -2px;
+			font-family: "w95fa";
 		}
 
 		.button {
@@ -122,7 +132,7 @@
 		</div>
 		<div class="body">
 			<p>Internet Explorer cannot open the Internet site</p>
-			<button class="button"><span>cancel</span></button>
+			<button class="button"><span>Cancel</span></button>
 		</div>
 	</div>
 
