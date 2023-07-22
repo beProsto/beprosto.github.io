@@ -23,7 +23,7 @@ body {
 }
 
 button {
-    cursor: url(../point.png), auto;
+    cursor: url(../point.png) 10 10, auto;
 }
 
 .window {
@@ -92,22 +92,23 @@ button {
 
 
 /* Window resizing - for script enabled browsers */
-
-.edge {
-    width: 100px;
-    height: 100px;
-    background-color: #5ac900;
-    border: black solid 2px;
+.edge-move {
+    /* background-color: #00ff007f; */
+    cursor: url(../move.png) 10 10, auto;
 }
 .edge-vert {
-    cursor: url(../scale-vertical.png), auto;
+    /* background-color: #ff00007f; */
+    cursor: url(../scale-horizontal.png) 10 10, auto;
 }
 .edge-hori {
-    cursor: url(../scale-horizontal.png), auto;
+    /* background-color: #0000ff7f; */
+    cursor: url(../scale-vertical.png) 10 10, auto;
 }
 .edge-diag1 {
-    cursor: url(../scale-tlbr.png), auto;
+    /* background-color: #ff00ff7f; */
+    cursor: url(../scale-tlbr.png) 10 10, auto;
 }
 .edge-diag2 {
-    cursor: url(../scale-trbl.png), auto;
+    /* background-color: #ffff007f; */
+    cursor: url(../scale-trbl.png) 10 10, auto;
 }
