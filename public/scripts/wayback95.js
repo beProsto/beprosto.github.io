@@ -2,11 +2,14 @@ const w95windows = [];
 
 const mouse = {x: 0, y: 0, held: {is: false, update: (e)=>{}}};
 
+let topIndex = 0;
+
 window.onmousemove = (e) => {
     mouse.x = e.clientX;
     mouse.y = e.clientY;
 
     if(mouse.held.is) {
+        e.preventDefault();
         mouse.held.update(e);
     }
 };
@@ -14,12 +17,14 @@ window.onmouseup = (e) => {
     mouse.held.is = false
 };
 
+
 window.addEventListener("load", () => {
     const windows = document.querySelectorAll(".window");
   
-    const stagger = {x: 5, y: 5, xi: 60, yi: 40};
+    const stagger = {x: 5, y: 5, z: 1, xi: 60, yi: 40, zi: 1, index: 0};
 
-    for(const win of windows) {
+    for(let i = 0; i < windows.length; i++) {
+        const win = windows[i];
         w95windows.push({
             window: win,
             movebar: document.createElement("div"),
@@ -37,14 +42,19 @@ window.addEventListener("load", () => {
             },
             x: stagger.x,
             y: stagger.y,
+            z: stagger.z,
             w: 500,
             h: 300
         });
 
         stagger.x += stagger.xi;
         stagger.y += stagger.yi;
-
+        stagger.z += stagger.zi;
+        stagger.index += 1;
+        
         const windata = w95windows[w95windows.length - 1];
+
+        topIndex = windata.z;
 
         windata.movebar.className = "edge edge-move";
 
@@ -70,31 +80,32 @@ window.addEventListener("load", () => {
         document.body.appendChild(windata.corners.right_top);
         document.body.appendChild(windata.corners.left_bottom);
 
-        const winupdate = () => {
+        const winUpdate = () => {
+            const z_index = windata.z * 4;
             windata.window.style = 
-                `position:absolute; left: ${windata.x}px; top: ${windata.y}px; width: ${windata.w}px; height: ${windata.h}px;`;
+                `position:absolute; left: ${windata.x}px; top: ${windata.y}px; width: ${windata.w}px; height: ${windata.h}px; z-index: ${z_index};`;
             
             windata.movebar.style = 
-                `position:absolute; left: ${windata.x}px; top: ${windata.y}px; width: ${windata.w}px; height: ${23}px;`;
+                `position:absolute; left: ${windata.x}px; top: ${windata.y}px; width: ${windata.w}px; height: ${23}px; z-index: ${z_index+1};`;
             
 
             windata.edges.left.style = 
-                `position:absolute; left: ${windata.x}px; top: ${windata.y}px; width: ${4}px; height: ${windata.h}px;`;
+                `position:absolute; left: ${windata.x}px; top: ${windata.y}px; width: ${4}px; height: ${windata.h}px; z-index: ${z_index+2};`;
             windata.edges.right.style = 
-                `position:absolute; left: ${windata.x + windata.w}px; top: ${windata.y}px; width: ${4}px; height: ${windata.h}px;`;
+                `position:absolute; left: ${windata.x + windata.w}px; top: ${windata.y}px; width: ${4}px; height: ${windata.h}px; z-index: ${z_index+2};`;
             windata.edges.top.style = 
-                `position:absolute; left: ${windata.x}px; top: ${windata.y}px; width: ${windata.w}px; height: ${4}px;`;
+                `position:absolute; left: ${windata.x}px; top: ${windata.y}px; width: ${windata.w}px; height: ${4}px; z-index: ${z_index+2};`;
             windata.edges.bottom.style = 
-                `position:absolute; left: ${windata.x}px; top: ${windata.y + windata.h}px; width: ${windata.w}px; height: ${4}px;`;
+                `position:absolute; left: ${windata.x}px; top: ${windata.y + windata.h}px; width: ${windata.w}px; height: ${4}px; z-index: ${z_index+2};`;
     
             windata.corners.left_top.style = 
-                `position:absolute; left: ${windata.x}px; top: ${windata.y}px; width: ${4}px; height: ${4}px;`;
+                `position:absolute; left: ${windata.x}px; top: ${windata.y}px; width: ${4}px; height: ${4}px; z-index: ${z_index+3};`;
             windata.corners.right_top.style = 
-                `position:absolute; left: ${windata.x + windata.w}px; top: ${windata.y}px; width: ${4}px; height: ${4}px;`;
+                `position:absolute; left: ${windata.x + windata.w}px; top: ${windata.y}px; width: ${4}px; height: ${4}px; z-index: ${z_index+3};`;
             windata.corners.left_bottom.style = 
-                `position:absolute; left: ${windata.x}px; top: ${windata.y + windata.h}px; width: ${4}px; height: ${4}px;`;
+                `position:absolute; left: ${windata.x}px; top: ${windata.y + windata.h}px; width: ${4}px; height: ${4}px; z-index: ${z_index+3};`;
             windata.corners.right_bottom.style = 
-                `position:absolute; left: ${windata.x + windata.w}px; top: ${windata.y + windata.h}px; width: ${4}px; height: ${4}px;`;
+                `position:absolute; left: ${windata.x + windata.w}px; top: ${windata.y + windata.h}px; width: ${4}px; height: ${4}px; z-index: ${z_index+3};`;
         };
 
         const addEdgeMouseHandler = (edge, handler) => {
@@ -103,9 +114,12 @@ window.addEventListener("load", () => {
                 const cachebeginning = 
                     {x: windata.x, y: windata.y, w: windata.w, h: windata.h, mx: mouse.x, my: mouse.y}; 
                 
+                topIndex += 1;
+                windata.z = topIndex;
+
                 mouse.held.update = (e) => {
                     handler(cachebeginning);
-                    winupdate();
+                    winUpdate();
                 };
             };
         }
@@ -151,6 +165,6 @@ window.addEventListener("load", () => {
             windata.h = mouse.y - cachebeginning.y;
         });
 
-        winupdate();
+        winUpdate();
     }
 });
