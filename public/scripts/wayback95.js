@@ -54,6 +54,9 @@ window.addEventListener("load", () => {
         
         const windata = w95windows[w95windows.length - 1];
 
+        const minw = +windata.window.getAttribute("min-width");
+        const minh = +windata.window.getAttribute("min-height");
+
         topIndex = windata.z;
 
         windata.movebar.className = "edge edge-move";
@@ -82,40 +85,56 @@ window.addEventListener("load", () => {
 
         const winUpdate = () => {
             const z_index = windata.z * 4;
+            const offsetx = -4;
+            const offsety = -4;
+            const offsetw = 4;
+            const offseth = 4;
+            const girth = 6;
+
+            const preparedx = windata.x + offsetx;
+            const preparedy = windata.y + offsety;
+            const preparedw = windata.w + offsetw;
+            const preparedh = windata.h + offseth;
+
+            const windowbuttoncount = windata.window.children[0].children.length - 1; 
+            
+            
             windata.window.style = 
                 `position:absolute; left: ${windata.x}px; top: ${windata.y}px; width: ${windata.w}px; height: ${windata.h}px; z-index: ${z_index};`;
             
             windata.movebar.style = 
-                `position:absolute; left: ${windata.x}px; top: ${windata.y}px; width: ${windata.w}px; height: ${23}px; z-index: ${z_index+1};`;
+                `position:absolute; left: ${preparedx}px; top: ${preparedy}px; width: ${preparedw - windowbuttoncount * 21 - 1}px; height: ${28}px; z-index: ${z_index+1};`;
             
 
             windata.edges.left.style = 
-                `position:absolute; left: ${windata.x}px; top: ${windata.y}px; width: ${4}px; height: ${windata.h}px; z-index: ${z_index+2};`;
+                `position:absolute; left: ${preparedx}px; top: ${preparedy}px; width: ${girth}px; height: ${preparedh}px; z-index: ${z_index+2};`;
             windata.edges.right.style = 
-                `position:absolute; left: ${windata.x + windata.w}px; top: ${windata.y}px; width: ${4}px; height: ${windata.h}px; z-index: ${z_index+2};`;
+                `position:absolute; left: ${preparedx + preparedw}px; top: ${preparedy}px; width: ${girth}px; height: ${preparedh}px; z-index: ${z_index+2};`;
             windata.edges.top.style = 
-                `position:absolute; left: ${windata.x}px; top: ${windata.y}px; width: ${windata.w}px; height: ${4}px; z-index: ${z_index+2};`;
+                `position:absolute; left: ${preparedx}px; top: ${preparedy}px; width: ${preparedw}px; height: ${girth}px; z-index: ${z_index+2};`;
             windata.edges.bottom.style = 
-                `position:absolute; left: ${windata.x}px; top: ${windata.y + windata.h}px; width: ${windata.w}px; height: ${4}px; z-index: ${z_index+2};`;
+                `position:absolute; left: ${preparedx}px; top: ${preparedy + preparedh}px; width: ${preparedw}px; height: ${girth}px; z-index: ${z_index+2};`;
     
             windata.corners.left_top.style = 
-                `position:absolute; left: ${windata.x}px; top: ${windata.y}px; width: ${4}px; height: ${4}px; z-index: ${z_index+3};`;
+                `position:absolute; left: ${preparedx}px; top: ${preparedy}px; width: ${girth}px; height: ${girth}px; z-index: ${z_index+3};`;
             windata.corners.right_top.style = 
-                `position:absolute; left: ${windata.x + windata.w}px; top: ${windata.y}px; width: ${4}px; height: ${4}px; z-index: ${z_index+3};`;
+                `position:absolute; left: ${preparedx + preparedw}px; top: ${preparedy}px; width: ${girth}px; height: ${girth}px; z-index: ${z_index+3};`;
             windata.corners.left_bottom.style = 
-                `position:absolute; left: ${windata.x}px; top: ${windata.y + windata.h}px; width: ${4}px; height: ${4}px; z-index: ${z_index+3};`;
+                `position:absolute; left: ${preparedx}px; top: ${preparedy + preparedh}px; width: ${girth}px; height: ${girth}px; z-index: ${z_index+3};`;
             windata.corners.right_bottom.style = 
-                `position:absolute; left: ${windata.x + windata.w}px; top: ${windata.y + windata.h}px; width: ${4}px; height: ${4}px; z-index: ${z_index+3};`;
+                `position:absolute; left: ${preparedx + preparedw}px; top: ${preparedy + preparedh}px; width: ${girth}px; height: ${girth}px; z-index: ${z_index+3};`;
         };
 
         const addEdgeMouseHandler = (edge, handler) => {
-            edge.onmousedown = () => {
+            edge.onmousedown = (e) => {
+                e.preventDefault();
                 mouse.held.is = true;
                 const cachebeginning = 
                     {x: windata.x, y: windata.y, w: windata.w, h: windata.h, mx: mouse.x, my: mouse.y}; 
                 
                 topIndex += 1;
                 windata.z = topIndex;
+                winUpdate();
 
                 mouse.held.update = (e) => {
                     handler(cachebeginning);
@@ -130,39 +149,99 @@ window.addEventListener("load", () => {
         });
 
         addEdgeMouseHandler(windata.edges.left, (cachebeginning) => {
-            windata.x = mouse.x;
-            windata.w = cachebeginning.w - mouse.x + cachebeginning.x;
+            let changedx = mouse.x;
+            let changedw = cachebeginning.w - mouse.x + cachebeginning.x;
+            if(changedw < minw) {
+                changedx = cachebeginning.x + cachebeginning.w - minw;
+                changedw = minw;
+            } 
+            windata.x = changedx;
+            windata.w = changedw;
         });
         addEdgeMouseHandler(windata.edges.right, (cachebeginning) => {
-            windata.w = mouse.x - cachebeginning.x;
+            let changedw = mouse.x - cachebeginning.x;
+            if(changedw < minw) {
+                changedw = minw;
+            }
+            windata.w = changedw;
         });
         addEdgeMouseHandler(windata.edges.top, (cachebeginning) => {
-            windata.y = mouse.y;
-            windata.h = cachebeginning.h - mouse.y + cachebeginning.y;
+            let changedy = mouse.y;
+            let changedh = cachebeginning.h - mouse.y + cachebeginning.y;
+            if(changedh < minh) {
+                changedy = cachebeginning.y + cachebeginning.h - minh;
+                changedh = minh;
+            }
+            windata.y = changedy;
+            windata.h = changedh;
         });
         addEdgeMouseHandler(windata.edges.bottom, (cachebeginning) => {
-            windata.h = mouse.y - cachebeginning.y;
+            let changedh = mouse.y - cachebeginning.y;
+            if(changedh < minh) {
+                changedh = minh;
+            }
+            windata.h = changedh;
         });
 
         addEdgeMouseHandler(windata.corners.left_top, (cachebeginning) => {
-            windata.x = mouse.x;
-            windata.y = mouse.y;
-            windata.w = cachebeginning.w - mouse.x + cachebeginning.x;
-            windata.h = cachebeginning.h - mouse.y + cachebeginning.y;
+            let changedx = mouse.x;
+            let changedy = mouse.y;
+            let changedw = cachebeginning.w - mouse.x + cachebeginning.x;
+            let changedh = cachebeginning.h - mouse.y + cachebeginning.y;
+            if(changedw < minw) {
+                changedx = cachebeginning.x + cachebeginning.w - minw;
+                changedw = minw;
+            }
+            if(changedh < minh) {
+                changedy = cachebeginning.y + cachebeginning.h - minh;
+                changedh = minh;
+            }
+            windata.x = changedx;
+            windata.y = changedy;
+            windata.w = changedw;
+            windata.h = changedh;
         });
         addEdgeMouseHandler(windata.corners.right_top, (cachebeginning) => {
-            windata.y = mouse.y;
-            windata.w = mouse.x - cachebeginning.x;
-            windata.h = cachebeginning.h - mouse.y + cachebeginning.y;
+            let changedy = mouse.y;
+            let changedw = mouse.x - cachebeginning.x;
+            let changedh = cachebeginning.h - mouse.y + cachebeginning.y;
+            if(changedw < minw) {
+                changedw = minw;
+            }
+            if(changedh < minh) {
+                changedy = cachebeginning.y + cachebeginning.h - minh;
+                changedh = minh;
+            }
+            windata.y = changedy;
+            windata.w = changedw;
+            windata.h = changedh;
         });
         addEdgeMouseHandler(windata.corners.left_bottom, (cachebeginning) => {
-            windata.x = mouse.x;
-            windata.w = cachebeginning.w - mouse.x + cachebeginning.x;
-            windata.h = mouse.y - cachebeginning.y;
+            let changedx = mouse.x;
+            let changedw = cachebeginning.w - mouse.x + cachebeginning.x;
+            let changedh = mouse.y - cachebeginning.y;
+            if(changedw < minw) {
+                changedx = cachebeginning.x + cachebeginning.w - minw;
+                changedw = minw;
+            }
+            if(changedh < minh) {
+                changedh = minh;
+            }
+            windata.x = changedx;
+            windata.w = changedw;
+            windata.h = changedh;
         });
         addEdgeMouseHandler(windata.corners.right_bottom, (cachebeginning) => {
-            windata.w = mouse.x - cachebeginning.x;
-            windata.h = mouse.y - cachebeginning.y;
+            let changedw = mouse.x - cachebeginning.x;
+            let changedh = mouse.y - cachebeginning.y;
+            if(changedw < minw) {
+                changedw = minw;
+            }
+            if(changedh < minh) {
+                changedh = minh;
+            }
+            windata.w = changedw;
+            windata.h = changedh;
         });
 
         winUpdate();
