@@ -9,13 +9,13 @@
     letter-spacing: 1px;
 }
 body {
-    cursor: url(../frame1.png), auto;
+    cursor: url(../images/cursors/frame1.png), auto;
     animation: cursor 300ms infinite;
 }
 @keyframes cursor {
-    0% {cursor: url(../frame1.png), auto;}
-    50% {cursor: url(../frame2.png), auto;}
-    100% {cursor: url(../frame3.png), auto;}
+    0% {cursor: url(../images/cursors/frame1.png), auto;}
+    50% {cursor: url(../images/cursors/frame2.png), auto;}
+    100% {cursor: url(../images/cursors/frame3.png), auto;}
 }
 
 body {
@@ -25,10 +25,11 @@ body {
     top: 0;
     width: 100%;
     height: 100%;
+    overflow: hidden;
 }
 
-button {
-    cursor: url(../point.png) 10 10, auto;
+button, .clickable {
+    cursor: url(../images/cursors/point.png) 10 10, auto;
 }
 
 .window {
@@ -99,21 +100,41 @@ button {
 /* Window resizing - for script enabled browsers */
 .edge-move {
     /* background-color: #00ff007f; */
-    cursor: url(../move.png) 10 10, auto;
+    cursor: url(../images/cursors/move.png) 10 10, auto;
 }
 .edge-vert {
     /* background-color: #ff00007f; */
-    cursor: url(../scale-horizontal.png) 10 10, auto;
+    cursor: url(../images/cursors/scale-horizontal.png) 10 10, auto;
 }
 .edge-hori {
     /* background-color: #0000ff7f; */
-    cursor: url(../scale-vertical.png) 10 10, auto;
+    cursor: url(../images/cursors/scale-vertical.png) 10 10, auto;
 }
 .edge-diag1 {
     /* background-color: #ff00ff7f; */
-    cursor: url(../scale-tlbr.png) 10 10, auto;
+    cursor: url(../images/cursors/scale-tlbr.png) 10 10, auto;
 }
 .edge-diag2 {
     /* background-color: #ffff007f; */
-    cursor: url(../scale-trbl.png) 10 10, auto;
+    cursor: url(../images/cursors/scale-trbl.png) 10 10, auto;
+}
+
+
+.desktop-icon {
+    width: fit-content;
+}
+.desktop-icon>img {
+    width: 48px;
+    height: 48px;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+}
+.desktop-icon>p {
+    margin: 0;
+}
+
+.checked>p {
+    background-color: #000080;
+    color: white;
+    border: 1px dashed white;
 }

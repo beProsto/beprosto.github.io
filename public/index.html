@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="./styles/wayback95.css">
 
 	<script defer src="./scripts/wayback95.js"></script>
+	<script defer src="./scripts/windows/counter.js"></script>
 </head>
 
 <body>
@@ -17,9 +18,9 @@
 	<div class="window" min-width="330" min-height="120">
 		<div class="title">
 			<b>Encountered Error</b>
-			<button class="button menu close"><span>X</span></button>
-			<button class="button menu close"><span>☐</span></button>
-			<button class="button menu close"><span>_</span></button>
+			<button class="button menu" action="close"><span>X</span></button>
+			<button class="button menu" action="maximise"><span>☐</span></button>
+			<button class="button menu" action="hide"><span>_</span></button>
 		</div>
 		<div class="body">
 			<p>Internet Explorer cannot open the Internet site</p>
@@ -29,19 +30,23 @@
 
 	<!-- Another window to test -->
 	<br>
-	<div class="window" min-width="480" min-height="180">
+	<div class="window" min-width="480" min-height="180" app-name="Counter" closed>
 		<div class="title">
-			<b>I have an exam at 8 o'clock and I'm not sleeping yet at 0:37</b>
-			<button class="button menu close"><span>X</span></button>
+			<b></b>
+			<button class="button menu" action="close"><span>X</span></button>
+			<button class="button menu" action="hide"><span>_</span></button>
 		</div>
 		<div class="body">
-			<p>I probably should get to it</p>
-			<p id="abc">test test test</p>
-			<p><i>but</i></p>
-			<button class="button"><span>Go to bed</span></button> <button class="button"><span>Lay head on table</span></button> <button class="button"><span>Submit</span></button>
+			<p>Hit this button to increase the counter!</p>
+			<button class="button"><span>This Button!</span></button>
 		</div>
 	</div>
 
+
+	<div class="desktop-icon clickable" app-name="Counter">
+		<img src="./images/icons/pc-icon.png" alt="icon">
+		<p>Counter</p>
+	</div>
 </body>
 
 </html>
