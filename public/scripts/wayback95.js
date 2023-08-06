@@ -346,7 +346,7 @@ for(let i = 0; i < windows.length; i++) {
         winUpdate();
     };
 
-    const dekstopIcons = document.getElementsByClassName("desktop-icon");
+    const dekstopIcons = document.getElementsByClassName("icon");
     for(const icon of dekstopIcons) {
         const iconAppName = icon.getAttribute("app-name");
         const iconAppId = icon.getAttribute("app-id");
