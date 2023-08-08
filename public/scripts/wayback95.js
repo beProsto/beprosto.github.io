@@ -5,16 +5,16 @@ const mouse = {x: 0, y: 0, held: {is: false, update: (e)=>{}}};
 
 let topIndex = 0;
 
-window.onmousemove = (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
+window.ontouchmove = window.onmousemove = (e) => {
+    mouse.x = e.clientX ?  e.clientX : e.changedTouches[0].clientX;
+    mouse.y = e.clientY ?  e.clientY : e.changedTouches[0].clientY;
 
     if(mouse.held.is) {
         e.preventDefault();
         mouse.held.update(e);
     }
 };
-window.onmouseup = (e) => {
+window.ontouchend = window.ontouchcancel = window.onmouseup = (e) => {
     mouse.held.is = false;
 };
 
@@ -40,6 +40,8 @@ for(let i = 0; i < windows.length; i++) {
         window: win,
         appName: appName,
         launch: null,
+        maximise: null,
+        exit: null,
         moveBar: document.createElement("div"),
         edges: {
             left: document.createElement("div"),
@@ -160,42 +162,52 @@ for(let i = 0; i < windows.length; i++) {
             `position:fixed; left: ${preparedx + preparedw}px; top: ${preparedy + preparedh}px; width: ${girth}px; height: ${girth}px; z-index: ${z_index+3};`;
     };
 
-    if(windata.menuButtons.hide){
+    // implementing logic behind menu buttons
+    const preMaxSize = {x:windata.x,y:windata.y,w:windata.w,h:windata.h};
+    windata.maximise = (max) => {
+        if(max) {
+            preMaxSize.x = windata.x;
+            preMaxSize.y = windata.y;
+            preMaxSize.w = windata.w;
+            preMaxSize.h = windata.h;
+            windata.x = 1;
+            windata.y = 1;
+            windata.w = window.innerWidth - 4;
+            windata.h = window.innerHeight - 37 - 5;
+            if(windata.menuButtons.maximise) windata.menuButtons.maximise.children[0].innerText = "▣";
+            windata.maximised = true;
+        }
+        else {
+            windata.x = preMaxSize.x;
+            windata.y = preMaxSize.y;
+            windata.w = preMaxSize.w;
+            windata.h = preMaxSize.h;
+            if(windata.menuButtons.maximise) windata.menuButtons.maximise.children[0].innerText = "☐";
+            windata.maximised = false;
+        }
+        winUpdate();
+    };
+    windata.exit = () => {
+        windata.closed = true;
+        windata._clean();
+        winUpdate();
+    };
+
+    // implementing menu buttons
+    if(windata.menuButtons.hide) {
         windata.menuButtons.hide.onclick = () => {
             windata.hidden = true;
             winUpdate();
         };
     }
-    const preMaxSize = {x:0,y:0,w:0,h:0};
-    if(windata.menuButtons.maximise){
+    if(windata.menuButtons.maximise) {
         windata.menuButtons.maximise.onclick = () => {
-            if(!windata.maximised) {
-                preMaxSize.x = windata.x;
-                preMaxSize.y = windata.y;
-                preMaxSize.w = windata.w;
-                preMaxSize.h = windata.h;
-                windata.x = 1;
-                windata.y = 1;
-                windata.w = window.innerWidth - 4;
-                windata.h = window.innerHeight - 4;
-                windata.menuButtons.maximise.children[0].innerText = "▣";
-            }
-            else {
-                windata.x = preMaxSize.x;
-                windata.y = preMaxSize.y;
-                windata.w = preMaxSize.w;
-                windata.h = preMaxSize.h;
-                windata.menuButtons.maximise.children[0].innerText = "☐";
-            }
-            windata.maximised = !windata.maximised;
-            winUpdate();
+            windata.maximise(!windata.maximised);
         };
     }
     if(windata.menuButtons.close) {
         windata.menuButtons.close.onclick = () => {
-            windata.closed = true;
-            windata._clean();
-            winUpdate();
+            windata.exit();
         };
     } 
 
@@ -207,9 +219,14 @@ for(let i = 0; i < windows.length; i++) {
     };
 
     const addEdgeMouseHandler = (edge, handler, cursor) => {
-        edge.onmousedown = (e) => {
+        edge.onmousedown = edge.ontouchstart = (e) => {
             e.preventDefault();
+            
+            mouse.x = e.clientX ?  e.clientX : e.changedTouches[0].clientX;
+            mouse.y = e.clientY ?  e.clientY : e.changedTouches[0].clientY;
+            
             mouse.held.is = true;
+            
             const cachebeginning = 
                 {x: windata.x, y: windata.y, w: windata.w, h: windata.h, mx: mouse.x, my: mouse.y}; 
             
@@ -336,41 +353,38 @@ for(let i = 0; i < windows.length; i++) {
         if(windata.closed) {
             windata.closed = false;
             windata.hidden = false;
+            windata.maximise(false);
+
+            windata.x = 15;
+            windata.y = 15;
+            windata.w = startw;
+            windata.h = starth;
+            
             windata._begin();
         }
         else if(windata.hidden) {
             windata.hidden = false;
         }
+
         topIndex += 1;
         windata.z = topIndex;
+
         winUpdate();
     };
 
-    const dekstopIcons = document.getElementsByClassName("icon");
-    for(const icon of dekstopIcons) {
+    const icons = document.getElementsByClassName("icon");
+    for(const icon of icons) {
         const iconAppName = icon.getAttribute("app-name");
         const iconAppId = icon.getAttribute("app-id");
 
         const appToLaunch = (
             (iconAppId != null) ? (w95windows[+iconAppId]) : 
             (iconAppName != null) ? (w95windowsByAppName[iconAppName]) : null);
-
-        const onClick = () => {
-            const returnToDef = () => {
-                icon.onclick = onClick;
-                icon.classList.remove("checked");
-            };
-
-            icon.classList.add("checked");
-            
+        
+        if(appToLaunch != null) {
             icon.onclick = () => {
-                if(appToLaunch != null) appToLaunch.launch();
-                returnToDef();
+                appToLaunch.launch();
             };
-            setTimeout(() => {
-                returnToDef();
-            }, 1000);
-        };
-        icon.onclick = onClick;
+        } 
     }
 }
