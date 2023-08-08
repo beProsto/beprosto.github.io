@@ -6,8 +6,8 @@ const mouse = {x: 0, y: 0, held: {is: false, update: (e)=>{}}};
 let topIndex = 0;
 
 window.ontouchmove = window.onmousemove = (e) => {
-    mouse.x = e.clientX ?  e.clientX : e.changedTouches[0].clientX;
-    mouse.y = e.clientY ?  e.clientY : e.changedTouches[0].clientY;
+    mouse.x = e.clientX ?  e.clientX : e.changedTouches ? e.changedTouches[0].clientX : mouse.x;
+    mouse.y = e.clientY ?  e.clientY : e.changedTouches ? e.changedTouches[0].clientY : mouse.y;
 
     if(mouse.held.is) {
         e.preventDefault();
