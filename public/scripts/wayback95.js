@@ -22,6 +22,32 @@ const windows = document.querySelectorAll(".window");
 
 const stagger = {x: 5, y: 5, z: 1, xi: 60, yi: 40, zi: 1, index: 0};
 
+const launchMenu = document.querySelector(".launch-menu");
+
+const launchButton = document.querySelector("#start-button").querySelector("button");
+const openLaunchMenu = () => {
+    launchMenu.style = `display: initial; animation: forwards 200ms launch-menu-up linear; z-index: ${(++topIndex)*4};`;
+    launchMenu.onanimationend = () => {};
+};
+const closeLaunchMenu = () => {
+    launchMenu.style = `animation: forwards 200ms launch-menu-down linear;`;
+    launchMenu.onanimationend = () => {
+        launchMenu.style = "display: none;";
+    };
+};
+
+launchMenu.style = "display: none;";
+let isLaunchMenuUp = false;
+launchButton.onclick = () => {
+    if(isLaunchMenuUp) {
+        closeLaunchMenu();
+    }
+    else {
+        openLaunchMenu();
+    }
+    isLaunchMenuUp = !isLaunchMenuUp;
+};
+
 for(let i = 0; i < windows.length; i++) {
     const win = windows[i];
     

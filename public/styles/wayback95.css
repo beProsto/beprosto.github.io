@@ -31,11 +31,16 @@ body {
     background: #008081;
 }
 
+img {
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+}
+
 button, .clickable {
     cursor: url(../images/cursors/point.png) 10 10, auto;
 }
 
-.window {
+.window, .area {
     background: #c0c0c0;
     border-left: white 1px solid;
     border-top: white 1px solid;
@@ -99,6 +104,12 @@ button, .clickable {
     border: #808080 1px solid;
 }
 
+.filled-body {
+    margin-top: 1px; 
+    margin-left: 1px; 
+    width: calc(100% - 2px); 
+    height: calc(100% - 26px);
+}
 
 /* Window resizing - for script enabled browsers */
 .edge-move {
@@ -157,8 +168,6 @@ button, .clickable {
     border: 0;
     margin-left: 1px;
     height: 26px;
-    image-rendering: crisp-edges;
-    image-rendering: pixelated;
 }
 #start-button>button>span {
     padding: 0;
@@ -179,9 +188,36 @@ button, .clickable {
 .icon>img {
     margin-top: 2px;
     height: 26px;
-    image-rendering: crisp-edges;
-    image-rendering: pixelated;
 }
 .icon>p {
     margin: 0;
+}
+
+
+/* Launch menu */
+@keyframes launch-menu-up {
+    0% {
+        bottom: -660px;
+    }
+    100% {
+    }
+}
+@keyframes launch-menu-down {
+    0% {
+    }
+    100% {
+        bottom: -660px;
+    }
+}
+.launch-menu {
+    position: fixed;
+    left: 5px;
+    bottom: 37px;
+    width: 300px;
+    height: 600px;
+
+    display: flex;
+}
+.inner-launch-menu {
+    margin: 1px;
 }

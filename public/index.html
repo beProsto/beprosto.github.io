@@ -37,13 +37,14 @@
 	<br>
 	<div class="window" min-width="274" min-height="104" app-name="Counter" closed>
 		<div class="title">
-			<b></b>
+			<b>Diver Glider</b>
 			<button class="button menu" action="close"><span>X</span></button>
+			<button class="button menu" action="maximise"><span>☐</span></button>
 			<button class="button menu" action="hide"><span>_</span></button>
 		</div>
-		<div class="body">
-			<p>Hit this button to increase the counter!</p>
-			<button class="button"><span>This Button!</span></button>
+		<div class="body filled-body">
+			<div id="game-container" style="background-color: brown; width: 100%; height: 100%;">
+			</div>
 		</div>
 	</div>
 
@@ -62,6 +63,16 @@
 		<button class="button icon" app-id="0">
 			<img src="./images/icons/pc-icon.png" alt="icon">
 		</button>
+	</div>
+
+	<!-- Launch menu -->
+	<div class="launch-menu area">
+		<div class="inner-launch-menu">
+			<div class="sideways">
+				<img src="./images/launch-menu/launch-menu.png" alt="">
+			</div>
+
+		</div>
 	</div>
 </body>
 
