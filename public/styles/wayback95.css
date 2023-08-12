@@ -36,7 +36,7 @@ img {
     image-rendering: pixelated;
 }
 
-button, .clickable {
+button, .clickable, .launch-menu-app {
     cursor: url(../images/cursors/point.png) 10 10, auto;
 }
 
@@ -220,4 +220,29 @@ button, .clickable {
 }
 .inner-launch-menu {
     margin: 1px;
+    display: flex;
+    flex-flow: row;
+}
+
+.launch-menu-app-list {
+    flex-basis: 100%;
+    display: flex;
+    flex-flow: column;
+}
+.launch-menu-app {
+    display: flex;
+    align-items: center;
+    height: 36px;
+}
+.launch-menu-app:hover {
+    background-color: #000080;
+    color: white;
+}
+.launch-menu-app>img {
+    margin-left: 2px;
+    margin-right: 5px;
+}
+
+.bottom-bar-app-item {
+    
 }

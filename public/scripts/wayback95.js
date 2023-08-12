@@ -22,32 +22,6 @@ const windows = document.querySelectorAll(".window");
 
 const stagger = {x: 5, y: 5, z: 1, xi: 60, yi: 40, zi: 1, index: 0};
 
-const launchMenu = document.querySelector(".launch-menu");
-
-const launchButton = document.querySelector("#start-button").querySelector("button");
-const openLaunchMenu = () => {
-    launchMenu.style = `display: initial; animation: forwards 200ms launch-menu-up linear; z-index: ${(++topIndex)*4};`;
-    launchMenu.onanimationend = () => {};
-};
-const closeLaunchMenu = () => {
-    launchMenu.style = `animation: forwards 200ms launch-menu-down linear;`;
-    launchMenu.onanimationend = () => {
-        launchMenu.style = "display: none;";
-    };
-};
-
-launchMenu.style = "display: none;";
-let isLaunchMenuUp = false;
-launchButton.onclick = () => {
-    if(isLaunchMenuUp) {
-        closeLaunchMenu();
-    }
-    else {
-        openLaunchMenu();
-    }
-    isLaunchMenuUp = !isLaunchMenuUp;
-};
-
 for(let i = 0; i < windows.length; i++) {
     const win = windows[i];
     
@@ -89,6 +63,7 @@ for(let i = 0; i < windows.length; i++) {
         maximised: false,
         hidden: false,
         closed: closed,
+        bottomBarItem: null,
         x: stagger.x,
         y: stagger.y,
         z: stagger.z,
@@ -150,11 +125,11 @@ for(let i = 0; i < windows.length; i++) {
 
     const winUpdate = () => {
         const z_index = windata.z * 4;
-        const offsetx = -4;
-        const offsety = -4;
-        const offsetw = 4;
-        const offseth = 4;
-        const girth = 6;
+        const offsetx = -9;
+        const offsety = -9;
+        const offsetw = 9;
+        const offseth = 9;
+        const girth = 10;
 
         const preparedx = windata.x + offsetx;
         const preparedy = windata.y + offsety;
@@ -167,7 +142,7 @@ for(let i = 0; i < windows.length; i++) {
             `position:fixed; left: ${windata.x}px; top: ${windata.y}px; width: ${windata.w}px; height: ${windata.h}px; z-index: ${z_index}; display: ${(windata.closed || windata.hidden ? "none" : "initial")};`;
         
         windata.moveBar.style = 
-            `position:fixed; left: ${preparedx}px; top: ${preparedy}px; width: ${preparedw - windowbuttoncount * 21 - 1}px; height: ${28}px; z-index: ${z_index+1};`;
+            `position:fixed; left: ${preparedx}px; top: ${preparedy}px; width: ${preparedw - windowbuttoncount * 21 - 1}px; height: ${34}px; z-index: ${z_index+1};`;
 
         windata.edges.left.style = 
             `position:fixed; left: ${preparedx}px; top: ${preparedy}px; width: ${girth}px; height: ${preparedh}px; z-index: ${z_index+2};`;
@@ -188,36 +163,6 @@ for(let i = 0; i < windows.length; i++) {
             `position:fixed; left: ${preparedx + preparedw}px; top: ${preparedy + preparedh}px; width: ${girth}px; height: ${girth}px; z-index: ${z_index+3};`;
     };
 
-    // implementing logic behind menu buttons
-    const preMaxSize = {x:windata.x,y:windata.y,w:windata.w,h:windata.h};
-    windata.maximise = (max) => {
-        if(max) {
-            preMaxSize.x = windata.x;
-            preMaxSize.y = windata.y;
-            preMaxSize.w = windata.w;
-            preMaxSize.h = windata.h;
-            windata.x = 1;
-            windata.y = 1;
-            windata.w = window.innerWidth - 4;
-            windata.h = window.innerHeight - 37 - 5;
-            if(windata.menuButtons.maximise) windata.menuButtons.maximise.children[0].innerText = "▣";
-            windata.maximised = true;
-        }
-        else {
-            windata.x = preMaxSize.x;
-            windata.y = preMaxSize.y;
-            windata.w = preMaxSize.w;
-            windata.h = preMaxSize.h;
-            if(windata.menuButtons.maximise) windata.menuButtons.maximise.children[0].innerText = "☐";
-            windata.maximised = false;
-        }
-        winUpdate();
-    };
-    windata.exit = () => {
-        windata.closed = true;
-        windata._clean();
-        winUpdate();
-    };
 
     // implementing menu buttons
     if(windata.menuButtons.hide) {
@@ -374,7 +319,33 @@ for(let i = 0; i < windows.length; i++) {
 
     winUpdate();
 
-    // launching apps
+    const preMaxSize = {x:windata.x,y:windata.y,w:windata.w,h:windata.h};
+    windata.maximise = (max) => {
+        if(max) {
+            preMaxSize.x = windata.x;
+            preMaxSize.y = windata.y;
+            preMaxSize.w = windata.w;
+            preMaxSize.h = windata.h;
+            windata.x = 1;
+            windata.y = 1;
+            windata.w = window.innerWidth - 4;
+            windata.h = window.innerHeight - 37 - 5;
+            if(windata.menuButtons.maximise) windata.menuButtons.maximise.children[0].innerText = "▣";
+            windata.maximised = true;
+        }
+        else {
+            windata.x = preMaxSize.x;
+            windata.y = preMaxSize.y;
+            windata.w = preMaxSize.w;
+            windata.h = preMaxSize.h;
+            if(windata.menuButtons.maximise) windata.menuButtons.maximise.children[0].innerText = "☐";
+            windata.maximised = false;
+        }
+        winUpdate();
+    };
+
+    //// Launching Apps
+    const botomBarAppList = document.querySelector(".bottom-bar-apps");
     windata.launch = () => {
         if(windata.closed) {
             windata.closed = false;
@@ -395,22 +366,63 @@ for(let i = 0; i < windows.length; i++) {
         topIndex += 1;
         windata.z = topIndex;
 
+        windata.bottomBarItem = document.createElement("button");
+        windata.bottomBarItem.className = "button icon bottom-bar-app-item";
+        const image = document.createElement
+        windata.appendChild()
         winUpdate();
     };
+    windata.exit = () => {
+        windata.closed = true;
+        windata._clean();
+        
+        
+        windata.bottomBarItem
+        winUpdate();
+    };
+    
+    const launchMenu = document.querySelector(".launch-menu");
+    let isLaunchMenuUp = false;
 
-    const icons = document.getElementsByClassName("icon");
-    for(const icon of icons) {
-        const iconAppName = icon.getAttribute("app-name");
-        const iconAppId = icon.getAttribute("app-id");
+    const launchButton = document.querySelector("#start-button").querySelector("button");
+    const openLaunchMenu = () => {
+        launchMenu.style = `display: initial; animation: forwards 200ms launch-menu-up linear; z-index: ${(++topIndex)*4};`;
+        launchMenu.onanimationend = () => {};
+        isLaunchMenuUp = true;
+    };
+    const closeLaunchMenu = () => {
+        launchMenu.style = `animation: forwards 200ms launch-menu-down linear;`;
+        launchMenu.onanimationend = () => {
+            launchMenu.style = "display: none;";
+        };
+        isLaunchMenuUp = false;
+    };
+
+    launchMenu.style = "display: none;";
+    launchButton.onclick = () => {
+        if(isLaunchMenuUp) {
+            closeLaunchMenu();
+        }
+        else {
+            openLaunchMenu();
+        }
+    };
+
+    const launchers = document.getElementsByClassName("launch-menu-app");
+    for(const laucnher of launchers) {
+        const laucnherAppName = laucnher.getAttribute("app-name");
+        const laucnherAppId = laucnher.getAttribute("app-id");
 
         const appToLaunch = (
-            (iconAppId != null) ? (w95windows[+iconAppId]) : 
-            (iconAppName != null) ? (w95windowsByAppName[iconAppName]) : null);
+            (laucnherAppId != null) ? (w95windows[+laucnherAppId]) : 
+            (laucnherAppName != null) ? (w95windowsByAppName[laucnherAppName]) : null);
         
         if(appToLaunch != null) {
-            icon.onclick = () => {
+            laucnher.onclick = (e) => {
+                e.preventDefault();
                 appToLaunch.launch();
+                closeLaunchMenu();
             };
-        } 
+        }
     }
 }
