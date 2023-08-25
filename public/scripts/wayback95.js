@@ -405,8 +405,7 @@ for(let i = 0; i < windows.length; i++) {
     const launchButton = document.querySelector("#start-button").querySelector("button");
     const openLaunchMenu = () => {
         launchMenu.style = `display: initial; animation: forwards 200ms launch-menu-up linear; z-index: ${(++topIndex)*4};`;
-        launchMenu.onanimationend = () => {};
-        isLaunchMenuUp = true;
+        launchMenu.onanimationend = () => {isLaunchMenuUp = true;};
     };
     const closeLaunchMenu = () => {
         launchMenu.style = `animation: forwards 200ms launch-menu-down linear;`;
@@ -418,13 +417,24 @@ for(let i = 0; i < windows.length; i++) {
 
     launchMenu.style = "display: none;";
     launchButton.onclick = () => {
-        if(isLaunchMenuUp) {
-            closeLaunchMenu();
-        }
-        else {
+        if(!isLaunchMenuUp) {
             openLaunchMenu();
         }
     };
+
+    const clickOutsideLaunchMenuCheck = (e) => {
+        let target = e.target;
+        do {
+            if(target === launchMenu) {
+                return;
+            }
+        } while(target = target.parentNode);
+        if(isLaunchMenuUp) {
+            closeLaunchMenu();
+        }
+    };
+    window.addEventListener("mousedown", clickOutsideLaunchMenuCheck);
+    window.addEventListener("touchstart", clickOutsideLaunchMenuCheck);
 
     const launchers = document.getElementsByClassName("launch-menu-app");
     for(const laucnher of launchers) {
