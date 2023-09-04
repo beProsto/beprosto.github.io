@@ -8,20 +8,32 @@
     font-size: 16px;
     letter-spacing: 1px;
 }
+
 body {
     cursor: url(../images/cursors/frame1.png), auto;
     animation: cursor 300ms infinite;
 }
+
 @keyframes cursor {
-    0% {cursor: url(../images/cursors/frame1.png), auto;}
-    50% {cursor: url(../images/cursors/frame2.png), auto;}
-    100% {cursor: url(../images/cursors/frame3.png), auto;}
+    0% {
+        cursor: url(../images/cursors/frame1.png), auto;
+    }
+
+    50% {
+        cursor: url(../images/cursors/frame2.png), auto;
+    }
+
+    100% {
+        cursor: url(../images/cursors/frame3.png), auto;
+    }
 }
 
-html, body {
+html,
+body {
     position: absolute;
     left: 0;
     top: 0;
+    margin: 0;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
@@ -36,11 +48,14 @@ img {
     image-rendering: pixelated;
 }
 
-button, .clickable, .launch-menu-app {
+button,
+.clickable,
+.launch-menu-app {
     cursor: url(../images/cursors/point.png) 10 10, auto;
 }
 
-.window, .area {
+.window,
+.area {
     background: #c0c0c0;
     border-left: white 1px solid;
     border-top: white 1px solid;
@@ -105,9 +120,9 @@ button, .clickable, .launch-menu-app {
 }
 
 .filled-body {
-    margin-top: 1px; 
-    margin-left: 1px; 
-    width: calc(100% - 2px); 
+    margin-top: 1px;
+    margin-left: 1px;
+    width: calc(100% - 2px);
     height: calc(100% - 26px);
 }
 
@@ -116,18 +131,22 @@ button, .clickable, .launch-menu-app {
     /* background-color: #00ff007f; */
     cursor: url(../images/cursors/move.png) 10 10, auto;
 }
+
 .edge-vert {
     /* background-color: #ff00007f; */
     cursor: url(../images/cursors/scale-horizontal.png) 10 10, auto;
 }
+
 .edge-hori {
     /* background-color: #0000ff7f; */
     cursor: url(../images/cursors/scale-vertical.png) 10 10, auto;
 }
+
 .edge-diag1 {
     /* background-color: #ff00ff7f; */
     cursor: url(../images/cursors/scale-tlbr.png) 10 10, auto;
 }
+
 .edge-diag2 {
     /* background-color: #ffff007f; */
     cursor: url(../images/cursors/scale-trbl.png) 10 10, auto;
@@ -149,11 +168,19 @@ button, .clickable, .launch-menu-app {
     box-shadow: 0px -1px #dfdfdf;
     background-color: #c0c0c0;
 }
+
+.bottom-bar-apps {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 #start-button {
     margin-left: 3px;
     padding: 0;
     height: 32px;
 }
+
 #start-button>button {
     height: 100%;
     padding: 0;
@@ -169,6 +196,7 @@ button, .clickable, .launch-menu-app {
     margin-left: 1px;
     height: 26px;
 }
+
 #start-button>button>span {
     padding: 0;
     margin: 0;
@@ -185,10 +213,12 @@ button, .clickable, .launch-menu-app {
     width: 32px;
     height: 32px;
 }
+
 .icon>img {
     margin-top: 2px;
     height: 26px;
 }
+
 .icon>p {
     margin: 0;
 }
@@ -199,16 +229,18 @@ button, .clickable, .launch-menu-app {
     0% {
         bottom: -660px;
     }
-    100% {
-    }
+
+    100% {}
 }
+
 @keyframes launch-menu-down {
-    0% {
-    }
+    0% {}
+
     100% {
         bottom: -660px;
     }
 }
+
 .launch-menu {
     position: fixed;
     left: 5px;
@@ -218,6 +250,7 @@ button, .clickable, .launch-menu-app {
 
     display: flex;
 }
+
 .inner-launch-menu {
     margin: 1px;
     display: flex;
@@ -229,16 +262,23 @@ button, .clickable, .launch-menu-app {
     display: flex;
     flex-flow: column;
 }
+
 .launch-menu-app {
     display: flex;
     align-items: center;
     height: 36px;
 }
+
 .launch-menu-app:hover {
     background-color: #000080;
     color: white;
 }
+
 .launch-menu-app>img {
     margin-left: 2px;
     margin-right: 5px;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> c8701de2cae3389bed54983474ad2875bd84aba6

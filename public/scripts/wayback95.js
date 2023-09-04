@@ -35,10 +35,12 @@ for(let i = 0; i < windows.length; i++) {
     console.log(closed)
 
     const appName = win.getAttribute("app-name");
+    const appIcon = win.getAttribute("app-icon");
 
     w95windows.push({
         window: win,
         appName: appName,
+        appIcon: appIcon,
         launch: null,
         maximise: null,
         exit: null,
@@ -317,8 +319,6 @@ for(let i = 0; i < windows.length; i++) {
         windata.h = changedh;
     });
 
-    winUpdate();
-
     const preMaxSize = {x:windata.x,y:windata.y,w:windata.w,h:windata.h};
     windata.maximise = (max) => {
         if(max) {
@@ -346,6 +346,18 @@ for(let i = 0; i < windows.length; i++) {
 
     //// Launching Apps
     const botomBarAppList = document.querySelector(".bottom-bar-apps");
+
+    windata.bottomBarItem = document.createElement("button");
+    windata.bottomBarItem.className = "button icon bottom-bar-app-item";
+    const iconImage = document.createElement("img");
+    iconImage.setAttribute('src', `./images/icons/${windata.appIcon}`);
+    iconImage.setAttribute('alt', 'icon');
+    windata.bottomBarItem.appendChild(iconImage);
+    windata.bottomBarItem.onclick = () => {
+        if(windata.hidden) { windata.launch(); }
+        else { windata.hidden = true; winUpdate(); }
+    };
+
     windata.launch = () => {
         if(windata.closed) {
             windata.closed = false;
@@ -357,6 +369,8 @@ for(let i = 0; i < windows.length; i++) {
             windata.w = startw;
             windata.h = starth;
             
+            botomBarAppList.appendChild(windata.bottomBarItem);
+            
             windata._begin();
         }
         else if(windata.hidden) {
@@ -366,20 +380,24 @@ for(let i = 0; i < windows.length; i++) {
         topIndex += 1;
         windata.z = topIndex;
 
-        windata.bottomBarItem = document.createElement("button");
-        windata.bottomBarItem.className = "button icon bottom-bar-app-item";
-        const image = document.createElement
-        windata.appendChild()
+        // windata.appendChild();
+
         winUpdate();
     };
     windata.exit = () => {
         windata.closed = true;
         windata._clean();
         
-        
-        windata.bottomBarItem
+        botomBarAppList.removeChild(windata.bottomBarItem);
+
         winUpdate();
     };
+    
+    if(!closed) {
+        windata.closed = true;
+        windata.launch();
+    }
+    winUpdate();
     
     const launchMenu = document.querySelector(".launch-menu");
     let isLaunchMenuUp = false;
