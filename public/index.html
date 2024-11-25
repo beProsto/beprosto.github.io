@@ -35,21 +35,31 @@
 	</div>
 
 	<!-- Another window to test -->
-	<br>
-	<div class="window" min-width="640" min-height="360" app-name="Counter" app-icon="games.png" closed>
+	<div class="window" min-width="500" min-height="430" app-name="Counter" app-icon="projects.png" closed>
 		<div class="title">
-			<b>Diver Glider</b>
+			<b>My Projects</b>
 			<button class="button menu" action="close"><span>X</span></button>
 			<button class="button menu" action="maximise"><span>☐</span></button>
 			<button class="button menu" action="hide"><span>_</span></button>
 		</div>
-		<div class="body filled-body">
-			<div id="game-container" style="width: 100%; height: 100%;">
-				<iframe src="https://beprosto.itch.io" width="100%" height="100%" frameborder="0"></iframe>
-			</div>
+		<div class="body">
+			<p>Here's a curated list of the projects which I'm the most proud of :p</p>
+			<ul>
+				<li>
+					<a href="https://github.com/beprosto/OWL" target="_blank">OWL</a>
+					<p>Open Windowing Library is a C++ library that allows the user to create windows, display stuff on them and manage their events on Linux and Windows. It supports Software and OpenGL rendering. :D</p>
+				</li>
+				<li>
+					<a href="https://beprosto.github.io/webxr-tutorial" target="_blank">WebXR Tutorial</a>
+					<p>At the time of it's creation it was the only barebones WebXR tutorial - no external libraries like <b>a-frame</b> or <b>Babylon.js</b>. Just pure WebXR and WebGL. :p</p>
+				</li>
+				<li>
+					<a href="https://github.com/beProsto/share-a-keyboard" target="_blank">share-a-keyboard</a>
+					<p>It's a simple utility to share a keyboard between 2 computers on a local network. The server acts as the keyboard's host and sends the inputs to the client. I created it because I broke my pc's keyboard and I wanted to temporarily use my laptop as a keyboard. ^^' <br>Supports both windows and linux!</p>
+				</li>
+			</ul>
 		</div>
 	</div>
-
 
 	<!-- Bottom bar -->
 	<div class="bottom-bar">
@@ -82,8 +92,8 @@
 					<span>Invitation</span>
 				</div>
 				<div class="launch-menu-app" app-id="1">
-					<img src="./images/icons/games.png" alt="icon">
-					<span>Diver Glider</span>
+					<img src="./images/icons/projects.png" alt="icon">
+					<span>My Projects</span>
 				</div>
 
 			</div>
