@@ -252,7 +252,7 @@ button,
     left: 5px;
     bottom: 37px;
     width: 300px;
-    height: 600px;
+    height: min(calc(100vh - 42px), 600px);
 
     display: flex;
 }
@@ -263,10 +263,19 @@ button,
     flex-flow: row;
 }
 
+.sideways {
+    height: min(calc(100vh - 44px), 600px);
+    width: 30px;
+    overflow: hidden;
+}
+
+
 .launch-menu-app-list {
+    height: min(calc(100vh - 44px), 600px);
     flex-basis: 100%;
     display: flex;
     flex-flow: column;
+    overflow-y: scroll;
 }
 
 .launch-menu-app {
