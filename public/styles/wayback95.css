@@ -66,6 +66,12 @@ button,
     padding-top: 0;
 }
 
+.body {
+    height: calc(100% - 24px);
+    width: calc(100% - 1px);
+    overflow: scroll;
+}
+
 .title {
     height: 23px;
     background: #000080;
