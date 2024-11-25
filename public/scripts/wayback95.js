@@ -20,7 +20,7 @@ window.ontouchend = window.ontouchcancel = window.onmouseup = (e) => {
 
 const windows = document.querySelectorAll(".window");
 
-const stagger = {x: 5, y: 5, z: 1, xi: 60, yi: 40, zi: 1, index: 0};
+const stagger = {x: 15, y: 15, z: 1, xi: 20, yi: 20, zi: 1, index: 0};
 
 for(let i = 0; i < windows.length; i++) {
     const win = windows[i];
@@ -30,6 +30,9 @@ for(let i = 0; i < windows.length; i++) {
 
     const startw = (win.getAttribute("start-width") ? +win.getAttribute("start-width") : minw);
     const starth = (win.getAttribute("start-height") ? +win.getAttribute("start-height") : minh);
+
+    const startx = (win.getAttribute("start-x") ? +win.getAttribute("start-x") : stagger.x);
+    const starty = (win.getAttribute("start-y") ? +win.getAttribute("start-y") : stagger.y);
 
     const closed = win.getAttribute("closed") != null;
     console.log(closed)
@@ -66,8 +69,8 @@ for(let i = 0; i < windows.length; i++) {
         hidden: false,
         closed: closed,
         bottomBarItem: null,
-        x: stagger.x,
-        y: stagger.y,
+        x: startx,
+        y: starty,
         z: stagger.z,
         w: startw,
         h: starth,
@@ -368,8 +371,8 @@ for(let i = 0; i < windows.length; i++) {
             windata.hidden = false;
             windata.maximise(false);
 
-            windata.x = 15;
-            windata.y = 15;
+            windata.x = startx;
+            windata.y = starty;
             windata.w = startw;
             windata.h = starth;
             
