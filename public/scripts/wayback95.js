@@ -221,6 +221,10 @@ for(let i = 0; i < windows.length; i++) {
         }
         windata.x = mouse.x - cachebeginning.mx + cachebeginning.x;
         windata.y = mouse.y - cachebeginning.my + cachebeginning.y;
+        if(windata.x < 0) windata.x = 0;
+        if(windata.y < 0) windata.y = 0;
+        if((windata.x+windata.w) > window.innerWidth) windata.x = window.innerWidth - windata.w;
+        if((windata.y+windata.h) > (window.innerHeight-42)) windata.y = window.innerHeight - windata.h - 42;
     });
 
     addEdgeMouseHandler(windata.edges.left, (cachebeginning) => {
