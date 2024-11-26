@@ -66,6 +66,40 @@
 		</div>
 	</div>
 
+	<div class="window" min-width="340" min-height="200" start-height="430" app-name="Linux" app-icon="games.png" closed>
+		<div class="title">
+			<b>My Linux Setup</b>
+			<button class="button menu" action="close"><span>X</span></button>
+			<button class="button menu" action="maximise"><span>☐</span></button>
+			<button class="button menu" action="hide"><span>_</span></button>
+		</div>
+		<div class="body">
+			<div style="padding: 2px;">
+				<p>Here's how I set up my new Arch install: :D</p>
+				<a href="./images/articles/linux-setup/screen.png" target="_blank"><img src="./images/articles/linux-setup/screen.png" alt="Screenshot." style="image-rendering: auto; border: 2px solid black; width: min(calc(100% - 4px), 1920px);"></a>
+				<p>It's a really simple setup but I wanted to save it here in case I ever want to recreate it on another machine:</p>
+				<ul>
+					<li>DE: KDE Plasma (plasma-meta)</li>
+					<li>DM: SDDM</li>
+					<li>FM: Dolphin</li>
+					<li>NM: NetworkManager</li>
+					<li>Terminal: kitty</li>
+					<li>Shell: fish</li>
+					<li>Code Editor: Code-OSS (code)</li>
+					<ul>
+						<li>Theme: Abyss</li>
+						<li>Layout: Primary sidebar right</li>
+					</ul>
+					<li>Web Browser: Firefox</li>
+					<ul>
+						<li>Extensions: ublock origin, dark reader</li>
+					</ul>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
 	<!-- Bottom bar -->
 	<div class="bottom-bar">
 		<div id="start-button">
@@ -99,6 +133,10 @@
 				<div class="launch-menu-app" app-id="1">
 					<img src="./images/icons/projects.png" alt="icon">
 					<span>My Projects</span>
+				</div>
+				<div class="launch-menu-app" app-id="2">
+					<img src="./images/icons/games.png" alt="icon">
+					<span>Linux Setup</span>
 				</div>
 
 			</div>
