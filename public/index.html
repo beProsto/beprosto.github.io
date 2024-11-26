@@ -10,10 +10,17 @@
 
 	<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css" rel="stylesheet" />
+
 	<link rel="stylesheet" href="./styles/wayback95.css">
 
+	<script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/components/prism-core.min.js"></script>
+	<script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+	<script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/file-highlight/prism-file-highlight.min.js"></script>
+
 	<script defer src="./scripts/wayback95.js"></script>
-	<script defer src="./scripts/windows/counter.js"></script>
+	<script defer src="./scripts/windows/projects.js"></script>
+	<script defer src="./scripts/windows/blog.js"></script>
 
 	<title>beProsto</title>
 </head>
@@ -40,7 +47,7 @@
 	</div>
 
 	<!-- Another window to test -->
-	<div class="window" min-width="340" min-height="300" start-width="500" start-height="430" app-name="Counter" app-icon="projects.png" closed>
+	<div class="window" min-width="340" min-height="300" start-width="500" start-height="430" app-name="Projects" app-icon="projects.png" closed>
 		<div class="title">
 			<b>My Projects</b>
 			<button class="button menu" action="close"><span>X</span></button>
@@ -85,7 +92,7 @@
 					<li>NM: NetworkManager</li>
 					<li>Terminal: kitty</li>
 					<li>Shell: fish</li>
-					<li>Code Editor: Code-OSS (code)</li>
+					<li>Code Editor: VSCode (visual-studio-code-bin)</li>
 					<ul>
 						<li>Theme: Abyss</li>
 						<li>Layout: Primary sidebar right</li>
@@ -99,6 +106,31 @@
 		</div>
 	</div>
 
+	<!-- My blogs -->
+	<div class="window" min-width="340" min-height="300" start-height="430" app-name="Blog" app-icon="notepad.png" closed>
+		<div class="title">
+			<b>Blog</b>
+			<button class="button menu" action="close"><span>X</span></button>
+			<button class="button menu" action="maximise"><span>☐</span></button>
+			<button class="button menu" action="hide"><span>_</span></button>
+		</div>
+		<div class="body">
+			<p>Hi! Welcome to my blog! I'll post some of my struggles against the machine here. :p<br>For now enjoy the humble counter below.</p>
+			<span	id="ctr"></span> <button class="button">+1</button>
+			<p>This is a test of the code snippet functionality:</p>	
+			<pre class="area" data-src="./blog/post1/code.py"></pre>
+			<p>Seems to work fair enough. ^^</p>
+			<p>I've run into some issues that suggest I will need to refactor this website in a way that it's not completely client-side, 
+				but has some pregenerated parts also. I'll halt development on it (again) for a little while till I get some education related
+				stuff out of the way and then I'll resume working on it, cuz it's been a really fun project so far.
+			</p>
+			<p>The thing I want to add specifically is to make it so all of the "apps" don't have to be in one giant html file,
+				but each has it's own seperate one instead. I also want to make it so the website's URL can include the apps opened on the website
+				so that search engines have an easier time refering people to my blog posts. Some of the most interesting blog posts I've read in my
+				life I've found (mostly on accident) through search engines, so I'd like to make it possible here too.
+			</p>
+		</div>
+	</div>
 
 	<!-- Bottom bar -->
 	<div class="bottom-bar">
@@ -132,11 +164,15 @@
 				</div>
 				<div class="launch-menu-app" app-id="1">
 					<img src="./images/icons/projects.png" alt="icon">
-					<span>My Projects</span>
+					<span>My projects</span>
 				</div>
 				<div class="launch-menu-app" app-id="2">
 					<img src="./images/icons/games.png" alt="icon">
-					<span>Linux Setup</span>
+					<span>My Arch setup</span>
+				</div>
+				<div class="launch-menu-app" app-id="3">
+					<img src="./images/icons/notepad.png" alt="icon">
+					<span>My blog</span>
 				</div>
 
 			</div>

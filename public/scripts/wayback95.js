@@ -76,6 +76,7 @@ for(let i = 0; i < windows.length; i++) {
         h: starth,
         minw: minw,
         minh: minh,
+        winUpdate: null,
         // this is the public / user defined section
         // any custom window state goes here, it should be deleted upon the window's closure and reeinitialised when it's recreated
         // yes this is slowly starting to resemble some really really weird kind of a web framework >:3
@@ -168,7 +169,7 @@ for(let i = 0; i < windows.length; i++) {
             `position:fixed; left: ${preparedx + preparedw}px; top: ${preparedy + preparedh}px; width: ${girth}px; height: ${girth}px; z-index: ${z_index+3};`;
     };
 
-
+    windata.winUpdate = winUpdate;
     // implementing menu buttons
     if(windata.menuButtons.hide) {
         windata.menuButtons.hide.onclick = () => {
@@ -224,10 +225,11 @@ for(let i = 0; i < windows.length; i++) {
         }
         windata.x = mouse.x - cachebeginning.mx + cachebeginning.x;
         windata.y = mouse.y - cachebeginning.my + cachebeginning.y;
+
         if(windata.x < 0) windata.x = 0;
-        if(windata.y < 0) windata.y = 0;
         if((windata.x+windata.w) > window.innerWidth) windata.x = window.innerWidth - windata.w;
         if((windata.y+windata.h) > (window.innerHeight-42)) windata.y = window.innerHeight - windata.h - 42;
+        if(windata.y < 0) windata.y = 0;
     });
 
     addEdgeMouseHandler(windata.edges.left, (cachebeginning) => {
@@ -237,6 +239,9 @@ for(let i = 0; i < windows.length; i++) {
             changedx = cachebeginning.x + cachebeginning.w - minw;
             changedw = minw;
         } 
+        
+        if(changedx < 0) return;
+
         windata.x = changedx;
         windata.w = changedw;
     });
@@ -245,6 +250,9 @@ for(let i = 0; i < windows.length; i++) {
         if(changedw < minw) {
             changedw = minw;
         }
+
+        if(windata.x + changedw > window.innerWidth) return;
+
         windata.w = changedw;
     });
     addEdgeMouseHandler(windata.edges.top, (cachebeginning) => {
@@ -254,14 +262,20 @@ for(let i = 0; i < windows.length; i++) {
             changedy = cachebeginning.y + cachebeginning.h - minh;
             changedh = minh;
         }
+
+        if(changedy < 0) return;
+
         windata.y = changedy;
-        windata.h = changedh;
+        windata.h = changedh; 
     });
     addEdgeMouseHandler(windata.edges.bottom, (cachebeginning) => {
         let changedh = mouse.y - cachebeginning.y;
         if(changedh < minh) {
             changedh = minh;
         }
+
+        if(windata.y + changedh > window.innerHeight - 42) return;
+
         windata.h = changedh;
     });
 
